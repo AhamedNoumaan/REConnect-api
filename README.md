@@ -25,3 +25,4 @@ Backend for a social media application called 'REConnect'
    ```sh
    node index.js
    ```
+
