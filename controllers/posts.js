@@ -45,11 +45,28 @@ async function deletePost(req, res, next) {
         res.status(500).json({ message: err.message });
     }
 }
+async function updatePost(req, res, next) {
+    const postId = req.params.id;
+    
+    try {
+        const post = await postModel.findByIdAndUpdate(
+            postId,
+            {
+                title: req.body.title,
+                body: req.body.body,
+            },
+            { new: true }
+        ); res.json(post);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 
 module.exports = {
     getPosts,
     createPost,
     getPostsByID,
-    deletePost
+    deletePost,
+    updatePost
 }
