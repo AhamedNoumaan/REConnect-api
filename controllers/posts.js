@@ -25,7 +25,7 @@ async function getPostsByID(req, res, next) {
 module.exports = {
     getPosts,
     getPostsByID
-   
+}  
 async function createPost(req, res, next) {
     const post = new postModel({
         title: req.body.title,
