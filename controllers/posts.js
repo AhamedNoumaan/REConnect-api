@@ -37,9 +37,19 @@ async function createPost(req, res, next) {
     }
 }
 
+async function deletePost(req, res, next) {
+    try {
+        await res.post.remove();
+        res.json({ message: 'Deleted Post' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 
 module.exports = {
     getPosts,
     createPost,
-    getPostsByID
+    getPostsByID,
+    deletePost
 }
