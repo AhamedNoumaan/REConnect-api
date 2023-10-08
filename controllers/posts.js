@@ -22,6 +22,7 @@ async function getPostsByID(req, res, next) {
     }
 }
 
+
 async function createPost(req, res, next) {
     const post = new postModel({
         title: req.body.title,
@@ -36,8 +37,19 @@ async function createPost(req, res, next) {
     }
 }
 
+async function deletePost(req, res, next) {
+    try {
+        await res.post.remove();
+        res.json({ message: 'Deleted Post' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 
 module.exports = {
     getPosts,
-    createPost
+    createPost,
+    getPostsByID,
+    deletePost
 }
