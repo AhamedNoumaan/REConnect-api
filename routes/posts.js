@@ -6,7 +6,7 @@ const postsController = require('../controllers/posts');
 
 router.get('/', postsController.getPosts);
 
-// router.post('/', postsController.createPost);
+router.post('/', postsController.createPost);
 
 // router.get('/:id', postsController.getPost);
 
