@@ -47,16 +47,19 @@ async function deletePost(req, res, next) {
 }
 
 async function updatePost(req, res, next) {
+
+    const post = await postModel.findById(req.params.id);
+
     if (req.body.title != null) {
-        res.post.title = req.body.title;
+        post.title = req.body.title;
     }
 
     if (req.body.body != null) {
-        res.post.body = req.body.body;
+        post.body = req.body.body;
     }
 
     try {
-        const updatedPost = await res.post.save();
+        const updatedPost = await post.save();
         res.json(updatedPost);
     } catch (err) {
         res.status(400).json({ message: err.message });
