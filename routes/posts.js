@@ -8,9 +8,9 @@ router.get('/', postsController.getPosts);
 
 router.post('/', postsController.createPost);
 
-router.get('/:id', postsController.getPost);
+router.get('/:id', postsController.getPostsByID);
 
-// router.patch('/:id', postsController.updatePost);
+router.patch('/:id', postsController.updatePost);
 
 router.delete('/:id', postsController.deletePost);
 
