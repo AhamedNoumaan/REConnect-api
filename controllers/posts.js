@@ -46,10 +46,28 @@ async function deletePost(req, res, next) {
     }
 }
 
+async function updatePost(req, res, next) {
+    if (req.body.title != null) {
+        res.post.title = req.body.title;
+    }
+
+    if (req.body.body != null) {
+        res.post.body = req.body.body;
+    }
+
+    try {
+        const updatedPost = await res.post.save();
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 
 module.exports = {
     getPosts,
     createPost,
     getPostsByID,
-    deletePost
+    deletePost,
+    updatePost
 }
