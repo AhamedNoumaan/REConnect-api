@@ -4,9 +4,10 @@ const postRoutes = require("./routes/posts")
 
 const app = express();
 
+app.use(postRoutes);
 app.use(express.json());
 
-app.use("/api/posts",postRoutes);
+
 
 app.get('/', (req, res) => {
     res.json({ message: "Welcome Page" });

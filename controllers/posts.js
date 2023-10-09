@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const postModel = require('../models/posts');
 
+
 async function getPosts(req, res, next) {
 
     try {
@@ -32,8 +33,11 @@ async function createPost(req, res, next) {
     try {
         const newPost = await post.save();
         res.status(201).json(newPost);
+            
     } catch (err) {
+        
         res.status(400).json({ message: err.message });
+        
     }
 }
 
@@ -63,11 +67,36 @@ async function updatePost(req, res, next) {
     }
 }
 
+async function likePost(req,res)
+{
+   
+    try{
+       
+      
+        const post = await postModel.findById(req.params.id);
+        console.log("likes",post.likes)
+        post.likes=post.likes+1
+        await post.save()
+        res.json(post);
+        
+        
+    // await post.save()
+    // res.status(200).json( post );
+    }
+    catch(err){
+        res.status(400).json({ message: err.message });
+    }
+    
+
+
+}
+
 
 module.exports = {
     getPosts,
     createPost,
     getPostsByID,
     deletePost,
-    updatePost
+    updatePost,
+    likePost
 }
