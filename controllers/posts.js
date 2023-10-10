@@ -61,6 +61,28 @@ async function updatePost(req, res, next) {
         res.status(500).json({ message: err.message });
     }
 }
+async function getLikePost(req, res, next) {
+    const postId = req.params.id;
+    try {
+        const post = await postModel.findById(postId);
+        res.json(post.likes);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+async function likePost(req, res, next) {
+    const postId = req.params.id;
+
+    try {
+        const post = await postModel.findById(postId);
+        post.likes += 1;  
+        const updatedPost = await post.save();
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 
 module.exports = {
@@ -68,5 +90,7 @@ module.exports = {
     createPost,
     getPostsByID,
     deletePost,
-    updatePost
+    updatePost,
+    likePost,
+    getLikePost
 }
