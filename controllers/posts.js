@@ -45,40 +45,31 @@ async function deletePost(req, res, next) {
         res.status(500).json({ message: err.message });
     }
 }
+
 async function updatePost(req, res, next) {
-    const postId = req.params.id;
-    
-    try {
-        const post = await postModel.findByIdAndUpdate(
-            postId,
-            {
-                title: req.body.title,
-                body: req.body.body,
-            },
-            { new: true }
-        ); res.json(post);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-}
-async function getLikePost(req, res, next) {
-    const postId = req.params.id;
-    try {
-        const post = await postModel.findById(postId);
-        res.json(post.likes);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-}
 
-async function likePost(req, res, next) {
-    const postId = req.params.id;
+    const post = await postModel.findById(req.params.id);
+
+    if (req.body.title != null) {
+        post.title = req.body.title;
+    }
+
+    if (req.body.body != null) {
+        post.body = req.body.body;
+    }
 
     try {
-        const post = await postModel.findById(postId);
-        post.likes += 1;  
         const updatedPost = await post.save();
         res.json(updatedPost);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+async function getLikes(req, res, next) {
+    try {
+        const post = await postModel.findById(req.params.id);
+        res.json({likes:post.likes});
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -91,6 +82,5 @@ module.exports = {
     getPostsByID,
     deletePost,
     updatePost,
-    likePost,
-    getLikePost
+    getLikes
 }

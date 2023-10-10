@@ -8,14 +8,12 @@ router.get('/', postsController.getPosts);
 
 router.post('/', postsController.createPost);
 
-router.get('/:id', postsController.getPost);
+router.get('/:id', postsController.getPostsByID);
 
 router.patch('/:id', postsController.updatePost);
 
 router.delete('/:id', postsController.deletePost);
 
-router.post('/:id/likePost', postsController.likePost);
-
-router.get('/:id', postsController.getLikePost);
+router.get('/:id/likes', postsController.getLikes);
 
 module.exports = router;
