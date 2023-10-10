@@ -74,6 +74,16 @@ async function getLikes(req, res, next) {
         res.status(500).json({ message: err.message });
     }
 }
+async function addLikes(req, res, next) {
+    try {
+        const post = await postModel.findById(req.params.id);
+        post.likes = post.likes + 1;
+        const updatedPost = await post.save();
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 
 module.exports = {
@@ -82,5 +92,6 @@ module.exports = {
     getPostsByID,
     deletePost,
     updatePost,
-    getLikes
+    getLikes,
+    addLikes
 }
